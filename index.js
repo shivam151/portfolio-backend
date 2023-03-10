@@ -14,13 +14,18 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const port = 3000
+const port = process.env.PORT || 5000
 
-app.use('/v/', require('./routes/index'))
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+}
 
 app.get('/', (req, res) => {
     res.send({ "Hello": "world" })
 })
+
+app.use('/v/', require('./routes/index'))
+
 
 
 app.listen(port, () => {
