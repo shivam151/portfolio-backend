@@ -16,7 +16,11 @@ app.use(cors())
 
 const port = 3000
 
-app.use('/', require('./routes/index'))
+app.use('/v/', require('./routes/index'))
+
+app.get('/', (req, res) => {
+    res.send({ "Hello": "world" })
+})
 
 
 app.listen(port, () => {
